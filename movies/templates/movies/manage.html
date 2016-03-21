@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Echo - Manage Your Movies{% endblock %}
+
+{% block content %}
+{% if movies_list %}
+<ul>
+    {% for m in movies_list %}
+    <li>{{ m.title }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No movies available.</p>
+{% endif %}
+{% endblock %}

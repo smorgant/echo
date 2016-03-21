@@ -1,0 +1,41 @@
+html, body, table, div, p{
+    margin: 0;
+    padding: 0;
+}
+a img, img {
+    margin: 0;
+    padding: 0;
+    border:none;/* remove borders from linked images*/
+    display:block
+}
+ul{
+    list-style:none;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    line-height:1.4;
+}
+#header{
+    margin: 0;
+    padding: 0;
+    height: 100px;
+    width: 100%;
+    background-color: blue;
+}
+#header-inlinecontent{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    width: 800px;
+    background-color: red;
+    text-align: right;
+    overflow: visible;
+    
+}
+#header-inlinecontent a{
+    display: inherit;
+    
+}

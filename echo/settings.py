@@ -27,10 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# lockdown Password
+LOCKDOWN_PASSWORDS = '1234'
+
+# lockdown Enable/Disable
+LOCKDOWN_ENABLED = True
+
+# logout Key
+LOCKDOWN_LOGOUT_KEY = 'logout'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'lockdown',
+    'movies.apps.MoviesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +58,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'lockdown.middleware.LockdownMiddleware',
 ]
 
 ROOT_URLCONF = 'echo.urls'
@@ -55,7 +66,7 @@ ROOT_URLCONF = 'echo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+                    os.path.join(BASE_DIR, "static")
+                    ]
