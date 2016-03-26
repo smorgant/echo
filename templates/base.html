@@ -2,55 +2,99 @@
 <html lang="en">
     <head>
         {% load staticfiles %}
-        <script src="{% static "js/jquery.mobile-1.4.5.min.js" %}"></script>
         <script src="{% static "js/jquery-1.12.2.min.js" %}"></script>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        <script>
+            $(document).on("mobileinit", function(){
+                           $.mobile.ajaxEnabled=false;
+                           $.mobile.loadingMessage = false;
+                           });            
+            </script>
+        <script src="{% static "js/jquery.mobile-1.4.5.min.js" %}"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+        {% block loadcss %}
+        {% endblock %}
         <title>{% block title %}Echo - Create your Own Library{% endblock %}</title>
     </head>
     
     <body>
-        <div id="header">
-            <div id="header-inlinecontent">
+        <div id="header" data-role="none">
+            <div id="header-wrapper">
+                <div id="header-logo">
+
+            <a href="/" target="_self">
+                <img src="{% static "img/echo-logo.png" %}" alt="Echo Logo">
+            </a>
+            <a href="/" target="_self">
+                <p>
+                    ECHO
+                </p>
+            </a>
             
-            {% block headbar %}
+                </div>
+                <div id="header-inlinecontent">
+                    
                 
-            <a href="http://www.wix.com/demone2/social-media-agency" target="_self">
-                <div>
-                    <p>HOME</p>
-                </div>
-            </a>
+                <a href="/" target="_self">
+                    <div>
+                        {% block headbar-home %}
+                        <p class="header-menu">HOME</p>
+                        {% endblock %}
+                    </div>
+                </a>
+                
+                <a href="/movies/" target="_self">
+                    <div>
+                        {% block headbar-movies %}
+                        <p class="header-menu">MOVIES</p>
+                        {% endblock %}
+                    </div>
+                </a>
+                
+                <a href="/series/" target="_self">
+                    <div>
+                        {% block headbar-series %}
+                        <p class="header-menu">SERIES</p>
+                        {% endblock %}
+                    </div>
+                </a>
+                
+                <a href="/movies/wanted/" target="_self">
+                    <div>
+                        {% block headbar-wanted %}
+                        <p class="header-menu">WANTED</p>
+                        {% endblock %}
+                    </div>
+                </a>
+                
+                <a href="/series/calendar/" target="_self">
+                    <div>
+                        {% block headbar-calendar %}
+                        <p class="header-menu">CALENDAR</p>
+                        {% endblock %}
+                    </div>
+                </a>
             
-            <a href="http://www.wix.com/demone2/social-media-agency" target="_self">
-                <div>
-                    <p>MOVIES</p>
                 </div>
-            </a>
-            
-            <a href="http://www.wix.com/demone2/social-media-agency" target="_self">
-                <div>
-                    <p>SERIES</p>
-                </div>
-            </a>
-
-            <a href="http://www.wix.com/demone2/social-media-agency" target="_self">
-                <div>
-                    <p>WANTED</p>
-                </div>
-            </a>
-
-            <a href="http://www.wix.com/demone2/social-media-agency" target="_self">
-                <div>
-                    <p>CALENDAR</p>
-                </div>
-            </a>
-
-            {% endblock %}
             </div>
         </div>
         
         <div id="content">
-            {% block content %}{% endblock %}
+            <div id="content-title">
+                {% block content-title %}
+                
+                {% endblock %}
+            </div>
+            <div id="content-line">
+            </div>
+            {% block content %}
+            
+            {% endblock %}
         </div>
+        
+        {% block js-script %}
+        {% endblock %}
+        
     </body>
 </html>

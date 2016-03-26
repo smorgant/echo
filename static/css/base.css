@@ -1,4 +1,4 @@
-html, body, table, div, p{
+html, body, table, div, p, h1, h2, h3, h4{
     margin: 0;
     padding: 0;
 }
@@ -20,22 +20,106 @@ body{
 #header{
     margin: 0;
     padding: 0;
-    height: 100px;
+    height: 99px;
     width: 100%;
-    background-color: blue;
+    background-color: #5058bc;
+}
+#header-wrapper{
+    margin: auto;
+    padding: 0;
+    height: 100px;
+    width: 800px;
+}
+#header-logo{
+
+    position: absolute;
+    padding: 0;
+    width: 200px;
+    text-align: left;
+    overflow: visible;
+    top: 25px;
+    height:49px;
+    font-weight: 900;
+    font-size:90%;
+}
+#header-logo a{
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    height: 49px;
+    cursor: pointer;
+}
+#header-logo img{
+    cursor: pointer;
+}
+#header-logo p{    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    padding:0 0 0 5px;
+    height: 49px;
+    font-family: raleway, sans-serif;
+    letter-spacing: 0.2em;
+    cursor: pointer;
 }
 #header-inlinecontent{
-    display: inline-block;
-    margin: 0;
+    position: relative;
     padding: 0;
-    height: 40px;
-    width: 800px;
-    background-color: red;
+    width: 600px;
     text-align: right;
     overflow: visible;
+    top: 35px;
+    height:30px;
+    left:200px;
+    vertical-align: baseline;
     
 }
 #header-inlinecontent a{
     display: inherit;
-    
+    display: inline-block;
+    vertical-align: baseline;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 300;
+    font-size: 80%;
+}
+#header-inlinecontent a:hover{
+    transition: color 0.3s ease-in;
+    -moz-transition:color 0.3s ease-in;
+    -o-transition:color 0.3s ease-in;
+    -webkit-transition:color 0.3s ease-in;
+    color: #BCC1EB;
+}
+p.header-menu{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    padding:0 10px;
+    height:30px;
+}
+#header-inlinecontent p.selected{
+    color: #BCC1EB;
+}
+#content{
+    width: 800px;
+    margin: auto;
+}
+#content-title{
+    line-height: 0.9em;
+    font: normal normal bold 80px/1.4em raleway,sans-serif;
+    color: #1B1B1E;
+    display: block;
+    font-size: 1.5em;
+    font-size: 30px;
+    font-stretch: normal;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#content-line{
+    border-bottom: 12px solid #5058bc;
+    height: 0 !important;
+    width: 60px;
+    min-height: 0 !important;
+    clear: both;
+    margin-bottom: 30px;
 }

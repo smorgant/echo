@@ -1,15 +1,109 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
+{% block loadcss %}
+<link rel="stylesheet" href="{% static "movies/manage.css" %}" />
+{% endblock %}
+
+
 {% block title %}Echo - Manage Your Movies{% endblock %}
 
+{% block headbar-movies %}
+        <p class="header-menu selected">MOVIES</p>
+{% endblock %}
+
+
+{% block content-title %}
+<h2>MANAGE</h2>
+{% endblock %}
+
+
 {% block content %}
+
+
 {% if movies_list %}
 <ul>
     {% for m in movies_list %}
-    <li>{{ m.title }}</li>
+    <li class="movie-list">
+    <div class="movie-hover">
+        <div>
+            <p class="movie-check"><input type="checkbox" name="box{{ m.id }}" value="{{ m.id }}" data-role="none" /></p>
+            <p class="movie-title">{{ m.title }}</p>
+            <p class="movie-year">{{ m.year }}</p>
+        </div>
+        <div class="movie-menu">
+            <a class="movie-imdb" href="http://www.imdb.com/title/{{ m.imdbid }}" target="_blank">
+                <p>IMDb</p>
+            </a>
+            <a class="movie-reload" href="/" target="_blank">
+                <p>Reload</p>
+            </a>
+            <a class="movie-history" href="/" target="_blank">
+                <p>History</p>
+            </a>
+            <a class="movie-delete" href="/" target="_blank">
+                <p>Delete</p>
+            </a>
+        </div>
+    </div>
+    </li>
+
     {% endfor %}
 </ul>
+<div id="popuptest" data-role="popup" data-overlay-theme="b" class="ui-content">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+    <p id="div-popup-ajax">
+    </p>
+</div>
 {% else %}
+
 <p>No movies available.</p>
+
 {% endif %}
+
+
+{% endblock %}
+
+
+{% block js-script %}
+
+<script>
+$(document).ready(function(){
+
+    $( "div.movie-hover" ).hover(
+                    function() {
+                    $(this).children("div.movie-menu").show();
+                    }, function() {
+                    $(this).children("div.movie-menu").hide();
+                    }
+    );
+    $( "a.movie-imdb" ).click(
+                    function() {
+                              $(this).attr("href", "https://href.li/?" + $(this).attr("href"));
+                    }
+    );
+    $( "p.movie-title, p.movie-year" ).click(
+            function() {
+                    $.ajaxSetup({
+                                beforeSend:function(){
+                                    $( "div.ui-loader" ).show();
+                                },
+                                complete:function(){
+                                    $( "div.ui-loader" ).hide();
+                                },
+                                type: "GET"
+                    });
+                    $.ajax({url: "/movies/" + $(this).closest( "div.movie-hover" ).find("input:checkbox").val(), success: function(result){
+                            $( "#div-popup-ajax" ).html(result);
+                           }, complete: function(){
+                            $( "div.ui-loader").hide();
+                           $( "#popuptest" ).popup("open",{transition: "pop"});
+                           }
+                    });
+
+            }
+    );
+});
+</script>
 {% endblock %}

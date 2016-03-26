@@ -1,0 +1,67 @@
+li.movie-list{
+    display: block;
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid rgba(80, 88, 188, .5);
+    background-clip: padding-box;
+}
+div.movie-hover{
+    display: block;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.movie-hover:hover{
+    background-color: rgba(80, 88, 188, .1);
+}
+.movie-list input{
+   /* visibility: hidden; */
+}
+.movie-list p{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+p.movie-check{
+}
+p.movie-title{
+    height: 30px;
+    padding-left: 15px;
+    color: black;
+    cursor: pointer;
+}
+p.movie-year{
+    height: 30px;
+    padding-left: 15px;
+    font-style: italic;
+    color: #666666;
+    font-weight: 200;
+    cursor: pointer;
+}
+div.movie-menu{
+    display: none;
+    height: 30px;
+    background-color: rgba(80, 88, 188, .2);
+}
+div.movie-menu a{
+    text-decoration: none;
+}
+div.movie-menu a p:hover{
+    background-color: rgba(80, 88, 188, .5);
+}
+div.movie-menu a p{
+    height: 30px;
+    display: block;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #000000;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 13px;
+}
+div.popup-hidden{
+
+}
