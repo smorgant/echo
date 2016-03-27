@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 from .models import Movie
 
@@ -20,11 +21,14 @@ def fiche(request, movie_id):
 
 def manage(request):
     movies_list = Movie.objects.order_by('title')[:10]
-    context = {
-        'movies_list': movies_list,
-    }
-    return render(request, 'movies/manage.html', context)
+    return render(request, 'movies/manage.html', {'movies_list': movies_list,})
 
 def wanted(request):
-    response = "You're looking at the results of Wanted"
-    return HttpResponse(response)
+    movies_list = Movie.objects.order_by('title')[:10]
+    return render(request, 'movies/wanted.html', {'movies_list': movies_list,})
+
+def search(request, movieName):
+    
+    
+    
+    return JsonResponse(jsonContent)

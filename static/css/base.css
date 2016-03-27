@@ -17,6 +17,14 @@ body{
     font-family: Verdana, Arial, Helvetica, sans-serif;
     line-height:1.4;
 }
+
+/****** UI *******/
+.ui-corner-right {
+    -webkit-border-top-right-radius-radius: .6em;
+    border-top-right-radius: .6em;
+    -webkit-border-bottom-right-radius: .6em;
+    border-bottom-right-radius: .6em;
+}
 #header{
     margin: 0;
     padding: 0;
@@ -122,4 +130,26 @@ p.header-menu{
     min-height: 0 !important;
     clear: both;
     margin-bottom: 30px;
+}
+/******* Search CSS *********/
+#search-link{
+    position:absolute;
+    background-color: #5058bc;
+    border-left: none;
+    left: -8px;
+}
+#search-link:hover{
+    left: 0px;
+}
+form.ui-filterable input{
+    height: 60px;
+    width: 400px;
+    font-size: 30px;
+}
+#myPopup-popup{
+    height: 500px;
+}
+#autocomplete li:hover{
+    background-color: rgba(80, 88, 188, 0.8);
+    text-shadow: none;
 }

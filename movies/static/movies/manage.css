@@ -24,7 +24,8 @@ div.movie-hover:hover{
     vertical-align: middle;
     text-align: center;
 }
-p.movie-check{
+.movie-menu a:hover{
+    text-shadow: none;
 }
 p.movie-title{
     height: 30px;
