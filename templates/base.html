@@ -2,8 +2,10 @@
 <html lang="en">
     <head>
         {% load staticfiles %}
-        <script src="{% static "js/jquery-1.12.2.min.js" %}"></script>
         <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        <link rel="stylesheet" href="{% static "css/jquery.m.toast.css" %}" />
+        <script src="{% static "js/jquery-1.12.2.min.js" %}"></script>
+        <script src="{% static "js/jquery.m.toast.js" %}"></script>
         <script>
             $(document).on("mobileinit", function(){
                            $.mobile.ajaxEnabled=false;
@@ -30,6 +32,14 @@
                                                      if ( value && value.length > 3 ) {
                                                      $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
                                                      $ul.listview( "refresh" );
+                                                     $.ajaxSetup({
+                                                                 beforeSend:function(){
+                                                                 $( "div.ui-loader" ).show();
+                                                                 },
+                                                                 complete:function(){
+                                                                 
+                                                                 }
+                                                     });
                                                      $.ajax({
                                                             url: "http://www.omdbapi.com/",
                                                             dataType: "jsonp",
@@ -39,21 +49,74 @@
                                                             r: "json",
                                                             type: "movie"
                                                             }
-                                                            })
+                                                     })
                                                      .then( function ( response ) {
                                                            if (response.Response === "True") {
                                                                   $.each( response.Search, function ( i, movie ) {
-                                                                         console.log(movie);
-                                                                         html += "<li>" + movie.Title + " <i>" + movie.Year + "</i></li>";
+                                                                         html += "<li><a href='#' class='add-movie' data-imdbid='" + movie.imdbID + "' data-title='" + movie.Title + "'>" + movie.Title + " <i> " + movie.Year + "</i></a></li>";
                                                                   });
                                                                   $ul.html( html );
+                                                                  $( "div.ui-loader" ).hide();
                                                                   $ul.listview( "refresh" );
                                                                   $ul.trigger( "updatelayout");
+                                                           
                                                            }
                                                      });
                                                      }
-                                                     });
-                             });
+                                });
+                             $("#autocomplete").on("click", "a.add-movie", function(e) {
+                                                   var clickedContainer = $(this);
+                                                   e.preventDefault();
+                                                   
+                                                   if ( clickedContainer.data('requestRunning') ) {
+                                                   return;
+                                                   }
+                                                   
+                                                   clickedContainer.data('requestRunning', true);
+                                                   var movieTitle = $(this).attr("data-title");
+                                                   var movieImdbid = $(this).attr("data-imdbid");
+                                                   
+                                                   console.log(movieTitle);
+                                                   console.log(movieImdbid);
+                                                   
+                                                   $.ajaxSetup({
+                                                               beforeSend:function(){
+                                                                    $.toast("Adding " + movieTitle);
+                                                               },
+                                                               complete:function(){
+                                                                    clickedContainer.data('requestRunning', false);
+                                                                    if (requestSuccess){
+                                                                        setTimeout(function(){
+                                                                            $( "#myPopup" ).popup( "close" );
+                                                                        },1);
+                                                                        /*setTimeout(function(){
+                                                                            window.location.reload()
+                                                                        },2000);*/
+                                                                    }
+                                                               }
+                                                               });
+                                                   $.ajax({
+                                                          url: "/movies/" + movieImdbid + "/add/",
+                                                          dataType: "jsonp",
+                                                          data: {
+                                                          },
+                                                          success: function(response){
+                                                          console.log("success path");
+                                                            if (response.Response === "True") {
+                                                                $.toast(movieTitle + " Added - Reloading");
+                                                                requestSuccess = true;
+                                                            }else{
+                                                                $.toast("Error: " + response.Response + " - Try Again");
+                                                            }
+                                                          },
+                                                          error: function(response){
+                                                            console.log("error path");
+                                                            $.toast(movieTitle + " Failure");
+                                                          }
+                                                    });
+                                                   
+                             } );
+            });
         </script>
         
     </head>
@@ -143,12 +206,11 @@
             
             {% endblock %}
         </div>
-        
-
-
-
+        <script>
+            $(document).ready(function(){
                           {% block js-script %}
                           {% endblock %}
-
+            });
+        </script>
     </body>
 </html>

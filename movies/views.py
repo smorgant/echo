@@ -1,12 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import JsonResponse
+
+import requests
 
 from .models import Movie
 
 # Views here:
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
+
+def add(request, movie_imdbid):
+    
+    r = requests.get('http://www.omdbapi.com/', params = {'i':movie_imdbid,'plot':'short','r':'json'})
+    
+    
+    
+    
+    
+    if r.status_code == 200:
+        if 'callback' in request.GET:
+            xml_bytes = '%s(%s)' % (request.GET.get('callback'), r.text)
+        else:
+            xml_bytes = r.text
+    else:
+        xml_bytes = {'Response' : 'False'}
+    
+    return HttpResponse(xml_bytes, content_type='application/json; charset=utf-8')
 
 def fiche(request, movie_id):
     try:
@@ -28,7 +47,5 @@ def wanted(request):
     return render(request, 'movies/wanted.html', {'movies_list': movies_list,})
 
 def search(request, movieName):
-    
-    
-    
-    return JsonResponse(jsonContent)
+
+    return HttpResponse(xml_bytes, content_type='application/json; charset=utf-8')

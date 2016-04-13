@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     #Url movies/2/
     url(r'(?P<movie_id>[0-9]+)/$', views.fiche, name='fiche'),
+    #Url movies/2/
+    url(r'(?P<movie_imdbid>tt[0-9]+)/add/', views.add, name='add'),
     #Url movies/wanted/
     url(r'^wanted/$', views.wanted, name='wanted'),
     #Url movies/manage/

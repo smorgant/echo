@@ -149,7 +149,3 @@ form.ui-filterable input{
 #myPopup-popup{
     height: 500px;
 }
-#autocomplete li:hover{
-    background-color: rgba(80, 88, 188, 0.8);
-    text-shadow: none;
-}
